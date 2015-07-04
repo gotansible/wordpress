@@ -1,0 +1,51 @@
+---
+
+
+- name: install - group
+  group:
+    name={{ wordpress_group }}
+    system=yes
+
+- name: install - user
+  user:
+    name={{ wordpress_user }}
+    group={{ wordpress_group }}
+    system=yes
+
+- name: install - create directories
+  file:
+    state=directory
+    path={{ item }}
+  with_items:
+    - "{{ wordpress_build_dir }}"
+    - "{{ wordpress_install_dir }}"
+
+- name: install - download wordpress
+  get_url:
+    url="http://wordpress.org/{{ wordpress_archive }}"
+    dest={{ wordpress_build_dir }}
+
+- name: install - unpack wordpress
+  unarchive:
+    copy=no
+    src={{ wordpress_build_dir }}/{{ wordpress_archive }}
+    dest={{ wordpress_install_dir }}
+
+- name: install - permissions
+  file:
+    path={{ wordpress_install_dir }}/wordpress/wp-content/uploads
+    state=directory
+    recurse=yes
+    owner={{ wordpress_user }}
+    group={{ wordpress_group }}
+    mode=775
+
+- name: install - permissions
+  file:
+    path={{ wordpress_install_dir }}
+    state=directory
+    recurse=yes
+    owner={{ wordpress_user }}
+    group={{ wordpress_group }}
+    mode=775
+

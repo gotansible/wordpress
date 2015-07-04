@@ -1,0 +1,27 @@
+---
+
+- name: config - nginx config
+  template:
+    src=wordpress.j2
+    dest={{ wordpress_nginx_dir }}/wordpress
+
+- name: config - info dir
+  file:
+    state=directory
+    path={{ wordpress_info_dir }}
+
+- name: config - copy info
+  copy:
+    src=info.php
+    dest={{ wordpress_info_dir }}/
+
+- name: config - info php
+  template:
+    src=phpinfo.j2
+    dest={{ wordpress_nginx_dir }}/info
+
+- name: config - wp_config
+  template:
+    src=wp-config.php.j2
+    dest={{ wordpress_install_dir }}/wordpress/wp-config.php
+

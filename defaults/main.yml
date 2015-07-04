@@ -1,0 +1,21 @@
+---
+
+wordpress_build_dir: /var/ansible/wordpress
+wordpress_install_dir: /srv
+wordpress_user: wordpress
+wordpress_group: www-data
+
+wordpress_archive: wordpress-4.2.2.tar.gz
+
+wordpress_nginx_dir: /etc/nginx/sites-enabled
+
+wordpress_info_dir: /var/www/html
+
+wordpress_hhvm: true
+
+wordpress_conf_dbname: somename
+wordpress_conf_dbuser: user
+wordpress_conf_password: password
+wordpress_conf_hostname: hostname
+
+wordpress_conf_crypt_phrase: bay cities italian deli and bakery
