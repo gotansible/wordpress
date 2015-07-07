@@ -1,0 +1,4 @@
+---
+
+- name: restart wordpress
+  shell: sudo sv restart nginx

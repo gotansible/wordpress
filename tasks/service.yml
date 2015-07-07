@@ -5,3 +5,4 @@
     name=hhvm
     enabled=yes
     state=restarted
+  notify: restart wordpress
