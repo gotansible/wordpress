@@ -13,9 +13,10 @@ wordpress_info_dir: /var/www/html
 
 wordpress_hhvm: true
 
-wordpress_conf_dbname: somename
-wordpress_conf_dbuser: user
-wordpress_conf_password: password
-wordpress_conf_hostname: hostname
+wordpress_db_name: somename
+wordpress_db_user: user
+wordpress_db_password: password
+wordpress_db_hostname: hostname
 
+wordpress_db_table_prefix: wp_
 wordpress_conf_crypt_phrase: bay cities italian deli and bakery

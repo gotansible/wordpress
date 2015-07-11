@@ -3,7 +3,7 @@
   sudo: true
   roles:
     - role: wordpress
-      wordpress_conf_hostname: hostname
+      wordpress_conf_dbhostname: hostname
       wordpress_conf_dbname: wordpress
       wordpress_conf_dbuser: wpuser
       wordpress_conf_password: password
