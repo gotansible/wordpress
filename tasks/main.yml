@@ -10,6 +10,9 @@
 - name: configure
   include: config.yml
 
+- name: configure nginx
+  include: config_nginx.yml
+
 - name: service
   include: service.yml
 

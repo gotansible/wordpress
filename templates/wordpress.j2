@@ -1,47 +1,27 @@
 #jinja2: trim_blocks: True, lstrip_blocks: True
 server {
+	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$;
+	root /var/www/{{ wordpress_root_domain }}/wordpress;
 
-	listen 80 default_server;
+	listen 80;
+	index index.php;
 
-	root /srv/wordpress;
-	index index.php index.html index.htm;
+	access_log  /var/log/nginx/{{ wordpress_root_domain }}_access.json json;
 
-	server_name localhost;
+	include global/restrictions.conf;
+	include global/wordpress-location.conf;
 
-	location / {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ /index.php?q=$uri&$args =404;
-
-		# Uncomment to enable naxsi on this location
-		# include /etc/nginx/naxsi.rules
-	}
-
-	location /blog/ {
-		# First attempt to serve request as file, then
-		# as directory, then fall back to displaying a 404.
-		try_files $uri $uri/ /blog/index.php?q=$uri&$args =404;
-
-		# Uncomment to enable naxsi on this location
-		# include /etc/nginx/naxsi.rules
-	}
-	
-#	error_page 404 /404.html;
-#	error_page 500 502 503 504 /50x.html;
-#	location = /50x.html {
-#	    root /usr/share/nginx/html;
-#	}
+{% if wordpress_nginx_wp_super_cache %}
+	include global/wordpress-wp-super-cache.conf;
+{% elif wordpress_nginx_w3_total_cache %}
+	include global/wordpress-w3-total-cache.conf;
+{% endif %}
 
 {% if wordpress_hhvm %}
+	# Pass *.php to high performance hhvm
 	include hhvm.conf;
 {% else %}
-	location ~ \.php$ {
-		 # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
-		try_files $uri =404;
-		fastcgi_split_path_info ^(.+\.php)(/.+)$;
-		fastcgi_pass  127.0.0.1:9000;
-		fastcgi_index index.php;
-		include fastcgi.conf;
-	}
+	# Pass *.php to php-fpm/php-fcgi 
+	include global/php-fpm.conf;
 {% endif %}
 }

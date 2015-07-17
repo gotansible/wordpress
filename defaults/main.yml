@@ -1,15 +1,19 @@
 ---
+wordpress_root_domain: example.com
 
 wordpress_build_dir: /var/ansible/wordpress
-wordpress_install_dir: /srv
+wordpress_install_dir: /var/www/{{ wordpress_root_domain }}
+wordpress_info_dir: /var/www/phpinfo
+
 wordpress_user: wordpress
 wordpress_group: www-data
-
 wordpress_archive: wordpress-4.2.2.tar.gz
 
-wordpress_nginx_dir: /etc/nginx/sites-enabled
-
-wordpress_info_dir: /var/www/html
+wordpress_nginx_conf_dir: /etc/nginx
+wordpress_nginx_global_dir: "{{wordpress_nginx_conf_dir}}/global"
+wordpress_nginx_shared_dir: "{{wordpress_nginx_conf_dir}}/conf.d"
+wordpress_nginx_enabled_dir: "{{wordpress_nginx_conf_dir}}/sites-enabled"
+wordpress_nginx_available_dir: "{{wordpress_nginx_conf_dir}}/sites-available"
 
 wordpress_hhvm: true
 
@@ -18,5 +22,9 @@ wordpress_db_user: user
 wordpress_db_password: password
 wordpress_db_hostname: hostname
 
+wordpress_nginx_wp_super_cache: false
+wordpress_nginx_w3_total_cache: false
+
 wordpress_db_table_prefix: wp_
 wordpress_conf_crypt_phrase: bay cities italian deli and bakery
+
