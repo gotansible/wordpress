@@ -1,5 +1,6 @@
 ---
 wordpress_root_domain: example.com
+wordpress_test_domain: sites.example.com
 
 wordpress_build_dir: /var/ansible/wordpress
 wordpress_install_dir: /var/www/{{ wordpress_root_domain }}
@@ -22,6 +23,7 @@ wordpress_db_user: user
 wordpress_db_password: password
 wordpress_db_hostname: hostname
 
+wordpress_default_site: true
 wordpress_nginx_wp_super_cache: false
 wordpress_nginx_w3_total_cache: false
 

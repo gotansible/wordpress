@@ -20,16 +20,22 @@
     - "{{ wordpress_build_dir }}"
     - "{{ wordpress_install_dir }}"
 
+- name: isntall - already installed check
+  stat: path={{wordpress_install_dir}}/wordpress/wp-content
+  register: wpcontent
+
 - name: install - download wordpress
   get_url:
     url="http://wordpress.org/{{ wordpress_archive }}"
     dest={{ wordpress_build_dir }}
+  when: not wpcontent.exists
 
 - name: install - unpack wordpress
   unarchive:
     copy=no
     src={{ wordpress_build_dir }}/{{ wordpress_archive }}
     dest={{ wordpress_install_dir }}
+  when: not wpcontent.exists
 
 - name: install - permissions
   file:

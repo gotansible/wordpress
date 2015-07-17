@@ -1,9 +1,9 @@
 #jinja2: trim_blocks: True, lstrip_blocks: True
 server {
-	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$;
+	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$ ~^{{ wordpress_root_domain | replace(".", "\.") }}\.{{ wordpress_test_domain | replace(".", "\.") }}$;
 	root /var/www/{{ wordpress_root_domain }}/wordpress;
 
-	listen 80;
+	listen 80 {% if wordpress_default_site %}default_server{% endif %};
 	index index.php;
 
 	access_log  /var/log/nginx/{{ wordpress_root_domain }}_access.json json;
