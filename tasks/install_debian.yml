@@ -28,14 +28,14 @@
   get_url:
     url="http://wordpress.org/{{ wordpress_archive }}"
     dest={{ wordpress_build_dir }}
-  when: not wpcontent.exists
+  when: not wpcontent.stat.exists
 
 - name: install - unpack wordpress
   unarchive:
     copy=no
     src={{ wordpress_build_dir }}/{{ wordpress_archive }}
     dest={{ wordpress_install_dir }}
-  when: not wpcontent.exists
+  when: not wpcontent.stat.exists
 
 - name: install - permissions
   file:
