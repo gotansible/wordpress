@@ -1,15 +1,16 @@
 ---
-dependencies: 
-  - gotansible.nginx
+dependencies:
+  - role: gotansible.nginx
+    nginx_pagespeed_build: true
 
 galaxy_info:
   author: Franklin Wise
-  description: 
-  company: your company (optional)
-  license: license (GPLv2, CC-BY, etc)
+  description:
+  company: 
+  license: MIT
   min_ansible_version: 1.8
-  #platforms:
-  #- name: Ubuntu
+  platforms:
+  - name: Ubuntu
   #  versions:
   #  - all
   #  - lucid
@@ -93,19 +94,7 @@ galaxy_info:
   #  - 11SP2
   #  - 11SP3
   #
-  #categories:
-  #- cloud
-  #- cloud:ec2
-  #- cloud:gce
-  #- cloud:rax
-  #- clustering
-  #- database
-  #- database:nosql
-  #- database:sql
-  #- development
-  #- monitoring
-  #- networking
-  #- packaging
-  #- system
-  #- web
+  categories:
+  - development
+  - web
 
