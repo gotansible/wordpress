@@ -2,6 +2,9 @@
 dependencies:
   - role: gotansible.nginx
     nginx_pagespeed_build: true
+    nginx_pagespeed_enabled: true
+    nginx_pagespeed_cache_dir: /var/pagespeed/cache
+    nginx_pagespeed_log_dir: /var/log/pagespeed
 
 galaxy_info:
   author: Franklin Wise

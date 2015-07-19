@@ -31,6 +31,7 @@
 
 - name: depend - hhvm install_fastcgi
   shell: /usr/share/hhvm/install_fastcgi.sh
+  when: wordpress_hhvm
 
 - name: depend - php5-fpm
   apt:
@@ -44,7 +45,6 @@
     - php5-gd
     - php5-curl
   when: not wordpress_hhvm
-
 
 #wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | sudo apt-key add -
 #echo deb http://dl.hhvm.com/ubuntu trusty main | sudo tee /etc/apt/sources.list.d/hhvm.list

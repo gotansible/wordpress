@@ -18,6 +18,8 @@ wordpress_nginx_available_dir: "{{wordpress_nginx_conf_dir}}/sites-available"
 
 wordpress_hhvm: true
 
+wordpress_fastcgi_cache_path: /var/cache/nginx
+
 wordpress_db_name: somename
 wordpress_db_user: user
 wordpress_db_password: password
@@ -29,4 +31,10 @@ wordpress_nginx_w3_total_cache: false
 
 wordpress_db_table_prefix: wp_
 wordpress_conf_crypt_phrase: bay cities italian deli and bakery
+
+wordpress_pagespeed_enabled: true
+
+wordpress_stats_ips:
+  - 127.0.0.1
+  - "{{ ansible_default_ipv4['address'] }}"
 
