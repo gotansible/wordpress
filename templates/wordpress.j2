@@ -3,26 +3,32 @@ server {
 	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$ ~^{{ wordpress_root_domain | replace(".", "\.") }}\.{{ wordpress_test_domain | replace(".", "\.") }}$;
 	root /var/www/{{ wordpress_root_domain }}/wordpress;
 
-	listen 80 {% if wordpress_default_site %}default_server{% endif %};
+	# meant to have a proxy in front
+	listen 8090;
 	index index.php;
 
-	access_log /var/log/nginx/{{ wordpress_root_domain }}_access.json json;
-	error_log  /var/log/nginx/{{ wordpress_root_domain }}_error.log error;
-	access_log /var/log/nginx/{{ wordpress_root_domain }}_cache.json cache;
+	access_log /var/log/nginx/{{ wordpress_root_domain }}_fastcgi_access.json json;
+	error_log  /var/log/nginx/{{ wordpress_root_domain }}_fastcgi_error.log error;
 
 	include global/restrictions.conf;
 	include global/wordpress-restrict.conf;
 
+	# cache condidtions must must go first after restrictions
+	include global/wordpress-cache-conditions.conf;
 {% if wordpress_pagespeed_enabled %}
 	include global/wordpress-pagespeed.conf;
 {% endif %}
 
-	include global/wordpress-notcached.conf;
-	include global/wordpress-cache.conf;
+	# Add trailing slash to */wp-admin requests.
+	rewrite /wp-admin$ $scheme://$host$uri/ permanent;
 
-######### PHPWPCACHE
+	pagespeed DownstreamCachePurgeLocationPrefix	http://{{ wordpress_root_domain }}:80/purge;
+	pagespeed DownstreamCacheRebeaconingKey			{{ wordpress_pagespeed_beacon_key }};
+	pagespeed DownstreamCachePurgeMethod			"GET";
 
 	include global/wordpress-location.conf;
+
+##### Wordpress Plugins
 
 {% if wordpress_nginx_wp_super_cache %}
 	include global/wordpress-wp-super-cache.conf;
@@ -30,11 +36,14 @@ server {
 	include global/wordpress-w3-total-cache.conf;
 {% endif %}
 
+##### PHP
+
 {% if wordpress_hhvm %}
-	# Pass *.php to high performance hhvm
-	include hhvm.conf;
+	# Pass *.php to high performance hhvm with caching
+	include global/wordpress-hhvm-cache.conf;
 {% else %}
-	# Pass *.php to php-fpm/php-fcgi 
-	include global/php-fpm.conf;
+	# Pass *.php to php-fpm with caching
+	include global/wordpress-php-fpm-cache.conf;
 {% endif %}
+
 }

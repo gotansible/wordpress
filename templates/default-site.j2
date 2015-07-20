@@ -1,6 +1,0 @@
-# default site
-server {
-	listen 80 default_server;
-	server_name  localhost;
-	rewrite ^ $scheme://{{ wordpress_root_domain }}$request_uri redirect;
-}

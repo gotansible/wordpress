@@ -37,16 +37,24 @@
   template:
     src=conf.d/{{ item }}.j2
     dest={{ wordpress_nginx_shared_dir }}/{{ item }}
+    mode=0644
   with_items:
     - upstream-php.conf
     - phpinfo.conf
-    - wordpress-fastcgi-cache.conf
+    - wordpress-includes.conf
 
 # nginx wordpress site
 - name: config - nginx wordpress site config
   template:
     src=wordpress.j2
     dest={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}
+    mode=0644
+
+- name: config - nginx wordpress site config
+  template:
+    src=wordpress.proxy_cache.j2
+    dest={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_proxy
+    mode=0644
 
 - name: config - nginx enable wordpress site
   file:

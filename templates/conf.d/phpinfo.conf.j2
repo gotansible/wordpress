@@ -1,6 +1,8 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+
 server {
 
-	listen 8080;
+	listen 20100;
 	server_name localhost;
 
 	root /var/www/phpinfo;
@@ -9,10 +11,7 @@ server {
 
 	location / {
 		try_files $uri $uri/ =404;
-		{% for ip in wordpress_stats_ips %}
-		allow {{ ip }};
-		{% endfor %}
-		deny all;
+		include global/acl-stats.conf
 	}
 	
 	include hhvm.conf;

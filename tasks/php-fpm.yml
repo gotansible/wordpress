@@ -1,0 +1,14 @@
+---
+- name: depend - php5-fpm
+  apt:
+    name={{ item }}
+    state=present
+    update_cache=yes
+  with_items:
+    - php5-fpm
+    - php5-mysql
+    - php5-mcrypt
+    - php5-gd
+    - php5-curl
+  when: not wordpress_hhvm
+

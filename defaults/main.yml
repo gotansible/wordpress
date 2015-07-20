@@ -33,6 +33,7 @@ wordpress_db_table_prefix: wp_
 wordpress_conf_crypt_phrase: bay cities italian deli and bakery
 
 wordpress_pagespeed_enabled: true
+wordpress_pagespeed_beacon_key: "{{ wordpress_root_domain | replace(".", "_") }}"
 
 wordpress_stats_ips:
   - 127.0.0.1

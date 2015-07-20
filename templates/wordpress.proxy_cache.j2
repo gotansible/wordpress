@@ -1,0 +1,33 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+
+# Caching Proxy For Wordpress
+server {
+	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$ ~^{{ wordpress_root_domain | replace(".", "\.") }}\.{{ wordpress_test_domain | replace(".", "\.") }}$;
+	listen 80 {% if wordpress_default_site %}default_server{% endif %};
+
+	access_log /var/log/nginx/{{ wordpress_root_domain }}_access.json json;
+	error_log  /var/log/nginx/{{ wordpress_root_domain }}_error.log error;
+	access_log /var/log/nginx/{{ wordpress_root_domain }}_cache.json cache;
+
+	include global/pagespeed-cache-html-server.conf;
+
+	### beacon random sample ###
+
+	set $should_beacon_header_val "";
+	set_random $rand 0 100;
+	if ($rand ~* "^[0-4]$") {
+	  set $should_beacon_header_val {{ wordpress_pagespeed_beacon_key }};
+	  set $bypass_cache 1;
+	}
+
+	location / {
+		proxy_pass http://{{ wordpress_root_domain }}:8090;
+		include global/pagespeed-proxy-cache.conf;
+
+		## pagespeed beacon ##
+		proxy_set_header PS-CapabilityList "fully general optimizations only";
+		proxy_hide_header PS-ShouldBeacon;
+		proxy_set_header PS-ShouldBeacon $should_beacon_header_val;
+	}
+}
+
