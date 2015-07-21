@@ -18,6 +18,7 @@ wordpress_nginx_available_dir: "{{wordpress_nginx_conf_dir}}/sites-available"
 
 wordpress_fastcgi_cache_path: /var/cache/nginx
 
+wordpress_hhvm_ip: "127.0.0.1"
 wordpress_hhvm_port: 9001
 
 wordpress_db_name: somename

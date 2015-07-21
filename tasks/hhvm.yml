@@ -25,7 +25,13 @@
 - name: hhvm - alternate port
   lineinfile:
     dest=/etc/hhvm/server.ini
-    regexp="hhvm\.server\.port = 9000"
+    regexp="^hhvm\.server\.ip= .*$"
+    line="hhvm.server.ip = {{ wordpress_hhvm_ip }}"
+
+- name: hhvm - alternate port
+  lineinfile:
+    dest=/etc/hhvm/server.ini
+    regexp="hhvm\.server\.port = .*$"
     line="hhvm.server.port = {{ wordpress_hhvm_port }}"
 
 - name: hhvm - logging php.ini

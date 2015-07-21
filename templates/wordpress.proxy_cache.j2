@@ -21,7 +21,7 @@ server {
 	}
 
 	location / {
-		proxy_pass http://{{ wordpress_root_domain }}:8090;
+		proxy_pass http://localhost:8090;
 		include global/pagespeed-proxy-cache.conf;
 
 		## pagespeed beacon ##

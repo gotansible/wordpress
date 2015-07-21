@@ -1,0 +1,14 @@
+---
+- hosts: all
+  sudo: true
+  roles:
+    - role: mariadb
+      mariadb_conf_bind_address: "192.168.50.200"
+      mariadb_root_password: abc123def
+      mariadb_databases:
+        - name: wordpress
+      mariadb_users:
+        - name: wpuser
+          host: "%"
+          password: some123pass
+          priv: 'wordpress.*:ALL'

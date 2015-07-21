@@ -3,8 +3,10 @@
   sudo: true
   roles:
     - role: wordpress
-      wordpress_db_hostname: hostname
+      wordpress_root_domain: "mycoolsite.com"
+      wordpress_test_domain: sites.hosting.co
+      wordpress_db_hostname: "192.168.50.200"
       wordpress_db_name: wordpress
       wordpress_db_user: wpuser
-      wordpress_db_password: password
+      wordpress_db_password: some123pass
 

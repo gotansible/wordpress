@@ -8,5 +8,17 @@ Vagrant.configure(VAGRANT_VERSION) do |config|
 		server.vm.provision :ansible do |ansible|
 			ansible.playbook = "test.yml"
 		end
+		server.vm.network "private_network", ip: "192.168.50.10"
+		server.vm.network "forwarded_port", guest: 80, host: 9999
 	end
+
+	config.vm.define "mariadb" do |server|
+		server.vm.box = "phusion/ubuntu-14.04-amd64"
+		server.vm.hostname = "mariadb"
+		server.vm.provision :ansible do |ansible|
+			ansible.playbook = "test-mariadb.yml"
+		end
+		server.vm.network "private_network", ip: "192.168.50.200"
+	end
+
 end
