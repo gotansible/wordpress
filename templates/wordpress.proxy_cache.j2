@@ -23,7 +23,7 @@ server {
 
 	location / {
 		proxy_pass http://localhost:8090;
-		include global/pagespeed-proxy-cache.conf;
+		include global/pagespeed-proxy-cache.conf; # do actual caching
 
 		## pagespeed beacon ##
 		proxy_set_header PS-CapabilityList "fully general optimizations only";

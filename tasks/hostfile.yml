@@ -1,0 +1,8 @@
+---
+
+- name: hostname - website domain
+  lineinfile:
+    state: present
+    dest: /etc/hosts
+    regexp: "\b{{ wordpress_root_domain | replace('.', '\.') }}\b"
+    line: '{{ "127.0.0.1" + "\t" + wordpress_root_domain + "\t" + "www." + wordpress_root_domain }}'

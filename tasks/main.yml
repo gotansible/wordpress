@@ -13,6 +13,9 @@
   include: install_debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: hostfile
+  include: hostfile.yml
+
 - name: configure
   include: config.yml
 

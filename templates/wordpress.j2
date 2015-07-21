@@ -13,8 +13,6 @@ server {
 	include global/restrictions.conf;
 	include global/wordpress-restrict.conf;
 
-	# cache condidtions must must go first after restrictions
-	include global/wordpress-cache-conditions.conf;
 {% if wordpress_pagespeed_enabled %}
 	include global/wordpress-pagespeed.conf;
 {% endif %}
@@ -26,6 +24,8 @@ server {
 	pagespeed DownstreamCacheRebeaconingKey			{{ wordpress_pagespeed_beacon_key }};
 	pagespeed DownstreamCachePurgeMethod			"GET";
 	pagespeed Domain {{ wordpress_root_domain }};
+
+##### MAIN location
 
 	include global/wordpress-location.conf;
 
