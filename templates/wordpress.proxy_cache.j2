@@ -9,7 +9,8 @@ server {
 	error_log  /var/log/nginx/{{ wordpress_root_domain }}_proxy_error.log error;
 	access_log /var/log/nginx/{{ wordpress_root_domain }}_proxy_cache.json cache;
 
-	include global/pagespeed-cache-html-server.conf;
+	include global/pagespeed-cache-html-server.conf; #bypass cache comes from here
+	include global/wordpress-cache-conditions.conf;  #no cache comes from here
 
 	### beacon random sample ###
 
