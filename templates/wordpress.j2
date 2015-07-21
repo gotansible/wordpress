@@ -7,8 +7,8 @@ server {
 	listen 8090;
 	index index.php;
 
-	access_log /var/log/nginx/{{ wordpress_root_domain }}_fastcgi_access.json json;
-	error_log  /var/log/nginx/{{ wordpress_root_domain }}_fastcgi_error.log error;
+	access_log /var/log/nginx/{{ wordpress_root_domain }}_php_access.json json;
+	error_log  /var/log/nginx/{{ wordpress_root_domain }}_php_error.log error;
 
 	include global/restrictions.conf;
 	include global/wordpress-restrict.conf;

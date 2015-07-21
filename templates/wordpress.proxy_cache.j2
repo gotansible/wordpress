@@ -5,9 +5,9 @@ server {
 	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$ ~^{{ wordpress_root_domain | replace(".", "\.") }}\.{{ wordpress_test_domain | replace(".", "\.") }}$;
 	listen 80 {% if wordpress_default_site %}default_server{% endif %};
 
-	access_log /var/log/nginx/{{ wordpress_root_domain }}_access.json json;
-	error_log  /var/log/nginx/{{ wordpress_root_domain }}_error.log error;
-	access_log /var/log/nginx/{{ wordpress_root_domain }}_cache.json cache;
+	access_log /var/log/nginx/{{ wordpress_root_domain }}_proxy_access.json json;
+	error_log  /var/log/nginx/{{ wordpress_root_domain }}_proxy_error.log error;
+	access_log /var/log/nginx/{{ wordpress_root_domain }}_proxy_cache.json cache;
 
 	include global/pagespeed-cache-html-server.conf;
 
