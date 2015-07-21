@@ -24,6 +24,8 @@ wordpress_db_user: user
 wordpress_db_password: password
 wordpress_db_hostname: hostname
 
+wordpress_dependencies_skip_nginx: false
+
 wordpress_default_site: true
 wordpress_nginx_wp_super_cache: false
 wordpress_nginx_w3_total_cache: false
