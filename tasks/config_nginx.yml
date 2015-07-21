@@ -20,6 +20,7 @@
   template:
     src=global/{{ item }}.j2
     dest={{ wordpress_nginx_global_dir }}/{{ item }}
+    force=yes
   with_items:
     - wordpress-pagespeed.conf
   notify: restart nginx
@@ -42,6 +43,7 @@
     src=conf.d/{{ item }}.j2
     dest={{ wordpress_nginx_shared_dir }}/{{ item }}
     mode=0644
+    force=yes
   with_items:
     - upstream-php.conf
     - phpinfo.conf
@@ -54,6 +56,7 @@
     src=wordpress.j2
     dest={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_php
     mode=0644
+    force=yes
   notify: restart nginx
 
 - name: config - nginx wordpress site config
@@ -61,6 +64,7 @@
     src=wordpress.proxy_cache.j2
     dest={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_proxy
     mode=0644
+    force=yes
   notify: restart nginx
 
 - name: config - nginx enable wordpress site

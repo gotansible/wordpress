@@ -6,4 +6,5 @@
     dest={{ wordpress_install_dir }}/wordpress/wp-config.php
     owner={{ wordpress_user }}
     group={{ wordpress_group }}
+    force=yes
 
