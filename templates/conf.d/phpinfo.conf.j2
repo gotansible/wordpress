@@ -11,8 +11,9 @@ server {
 
 	location / {
 		try_files $uri $uri/ =404;
-		include global/acl-stats.conf
+		include global/acl-stats.conf;
 	}
 	
-	include hhvm.conf;
+	include global/php-hhvm-fpm.conf;
+
 }

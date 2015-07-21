@@ -4,13 +4,11 @@
   apt_key:
     url=http://dl.hhvm.com/conf/hhvm.gpg.key
     state=present
-  when: wordpress_hhvm
 
 - name: hhvm - hhvm repo
   apt_repository:
     repo='deb http://dl.hhvm.com/ubuntu trusty main'
     state=present
-  when: wordpress_hhvm
 
 - name: hhvm - hhvm apt-get
   apt:
@@ -18,16 +16,22 @@
     state=present
     update_cache=yes
     cache_valid_time=3600
-  when: wordpress_hhvm
 
-- name: hhvm - hhvm install_fastcgi
-  shell: /usr/share/hhvm/install_fastcgi.sh
-  args:
-    creates: /etc/nginx/hhvm.conf
-  when: wordpress_hhvm
+#- name: hhvm - hhvm install_fastcgi
+#  shell: /usr/share/hhvm/install_fastcgi.sh
+#  args:
+#    creates: /etc/nginx/hhvm.conf
 
 - name: hhvm - alternate port
   lineinfile:
     dest=/etc/hhvm/server.ini
     regexp="hhvm\.server\.port = 9000"
-    line="hhvm.server.port = 9001"
+    line="hhvm.server.port = {{ wordpress_hhvm_port }}"
+
+- name: hhvm - logging php.ini
+  lineinfile:
+    dest=/etc/hhvm/php.ini
+    line="{{ item }}"
+  with_items:
+    - "hhvm.log.header = true"
+    - "hhvm.log.natives_stack_trace = true"

@@ -38,12 +38,6 @@ server {
 
 ##### PHP
 
-{% if wordpress_hhvm %}
-	# Pass *.php to high performance hhvm with caching
-	include global/wordpress-hhvm-cache.conf;
-{% else %}
-	# Pass *.php to php-fpm with caching
-	include global/wordpress-php-fpm-cache.conf;
-{% endif %}
+	include global/php-hhvm-fpm.conf;
 
 }

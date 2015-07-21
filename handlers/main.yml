@@ -1,4 +1,13 @@
 ---
 
 - name: restart wordpress
-  shell: sudo sv restart nginx
+  shell: nginx -t && sv restart nginx
+  sudo: true
+
+- name: restart php5-fpm
+  shell: php5-fpm -t && service php5-fpm restart
+  sudo: true
+
+- name: restart hhvm
+  shell: service hhvm restart
+  sudo: true

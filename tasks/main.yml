@@ -3,6 +3,12 @@
 - name: dependencies
   include: depend.yml
 
+- name: hhvm
+  include: hhvm.yml
+
+- name: php-fpm
+  include: php-fpm.yml
+
 - name: debian install
   include: install_debian.yml
   when: ansible_os_family == 'Debian'

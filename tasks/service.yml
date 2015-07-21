@@ -4,5 +4,13 @@
   service:
     name=hhvm
     enabled=yes
-    state=restarted
+    state=started
   notify: restart wordpress
+
+- name: service - php5-fpm
+  service:
+    name=php5-fpm
+    enabled=yes
+    state=started
+  notify: restart wordpress
+

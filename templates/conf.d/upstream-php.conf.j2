@@ -3,9 +3,9 @@
 upstream php {
 	# server unix:/tmp/php-fpm.sock;
 	
-	server 127.0.0.1:9001; # HHVM
+	server 127.0.0.1:{{ wordpress_hhvm_port }}; # HHVM
 
 	# PHP-FPM fall back
-	#server 127.0.0.1:9000 backup;
+	server 127.0.0.1:9000 backup;
 }
 

@@ -16,9 +16,9 @@ wordpress_nginx_shared_dir: "{{wordpress_nginx_conf_dir}}/conf.d"
 wordpress_nginx_enabled_dir: "{{wordpress_nginx_conf_dir}}/sites-enabled"
 wordpress_nginx_available_dir: "{{wordpress_nginx_conf_dir}}/sites-available"
 
-wordpress_hhvm: true
-
 wordpress_fastcgi_cache_path: /var/cache/nginx
+
+wordpress_hhvm_port: 9001
 
 wordpress_db_name: somename
 wordpress_db_user: user
@@ -33,7 +33,7 @@ wordpress_db_table_prefix: wp_
 wordpress_conf_crypt_phrase: bay cities italian deli and bakery
 
 wordpress_pagespeed_enabled: true
-wordpress_pagespeed_beacon_key: "{{ wordpress_root_domain | replace(".", "_") }}"
+wordpress_pagespeed_beacon_key: "{{ wordpress_root_domain | replace('.', '_') }}"
 
 wordpress_stats_ips:
   - 127.0.0.1
