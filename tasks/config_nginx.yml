@@ -14,7 +14,7 @@
     src=global/
     dest={{ wordpress_nginx_global_dir }}
     force=yes
-  notify: restart nginx
+  notify: restart wordpress
 
 - name: config - global templates
   template:
@@ -23,7 +23,7 @@
     force=yes
   with_items:
     - wordpress-pagespeed.conf
-  notify: restart nginx
+  notify: restart wordpress
 
 # nginx shared
 - name: config - info dir
@@ -36,7 +36,7 @@
     src=info.php
     dest={{ wordpress_info_dir }}/
     force=yes
-  notify: restart nginx
+  notify: restart wordpress
 
 - name: config - nginx shared config
   template:
@@ -48,7 +48,7 @@
     - upstream-php.conf
     - phpinfo.conf
     - wordpress-includes.conf
-  notify: restart nginx
+  notify: restart wordpress
 
 # nginx wordpress site
 - name: config - nginx wordpress site config
@@ -57,7 +57,7 @@
     dest={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_php
     mode=0644
     force=yes
-  notify: restart nginx
+  notify: restart wordpress
 
 - name: config - nginx wordpress site config
   template:
@@ -65,19 +65,19 @@
     dest={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_proxy
     mode=0644
     force=yes
-  notify: restart nginx
+  notify: restart wordpress
 
 - name: config - nginx enable wordpress site
   file:
     state=link
     src={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_php
     dest={{ wordpress_nginx_enabled_dir }}/{{ wordpress_root_domain }}_php
-  notify: restart nginx
+  notify: restart wordpress
 
 - name: config - nginx enable wordpress site
   file:
     state=link
     src={{ wordpress_nginx_available_dir }}/{{ wordpress_root_domain }}_proxy
     dest={{ wordpress_nginx_enabled_dir }}/{{ wordpress_root_domain }}_proxy
-  notify: restart nginx
+  notify: restart wordpress
 
