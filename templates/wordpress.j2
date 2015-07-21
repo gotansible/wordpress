@@ -25,6 +25,7 @@ server {
 	pagespeed DownstreamCachePurgeLocationPrefix	http://{{ wordpress_root_domain }}:80/purge;
 	pagespeed DownstreamCacheRebeaconingKey			{{ wordpress_pagespeed_beacon_key }};
 	pagespeed DownstreamCachePurgeMethod			"GET";
+	pagespeed Domain {{ wordpress_root_domain }};
 
 	include global/wordpress-location.conf;
 
