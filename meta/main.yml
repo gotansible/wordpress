@@ -6,7 +6,7 @@ dependencies:
     nginx_pagespeed_enabled: true
     nginx_proxy_cache_paths:
       - "{{ nginx_proxy_cache_path_dir }} levels=1:2 keys_zone=htmlcache:100m max_size=1024m inactive=605m"
-    when: not wordpress_dependencies_skip_nginx
+    when: wordpress_role_nginx
 
 galaxy_info:
   author: Franklin Wise
