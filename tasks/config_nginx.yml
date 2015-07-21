@@ -8,12 +8,12 @@
     mode=0755
   with_items:
     - "{{ wordpress_nginx_global_dir }}"
-    - "{{ wordpress_fastcgi_cache_path }}"
 
 - name: config - copy global nginx config
   copy:
     src=global/
     dest={{ wordpress_nginx_global_dir }}
+    force=yes
   notify: restart nginx
 
 - name: config - global templates
@@ -34,6 +34,7 @@
   copy:
     src=info.php
     dest={{ wordpress_info_dir }}/
+    force=yes
   notify: restart nginx
 
 - name: config - nginx shared config
