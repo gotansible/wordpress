@@ -31,9 +31,7 @@ server {
 		proxy_cache_min_uses  1;
 
 		## pagespeed beacon ##
-		if $ua_dependent_ps_capability_list ~ "^$" {
-			set $ua_dependent_ps_capability_list "fully general optimizations only";
-		}
+		set_if_empty $ua_dependent_ps_capability_list "fully general optimizations only";
 
 		proxy_set_header PS-CapabilityList $ua_dependent_ps_capability_list ;
 		proxy_hide_header PS-ShouldBeacon;
