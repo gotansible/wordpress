@@ -24,6 +24,7 @@ server {
 	pagespeed DownstreamCacheRebeaconingKey			{{ wordpress_pagespeed_beacon_key }};
 	pagespeed DownstreamCachePurgeMethod			"GET";
 	pagespeed Domain {{ wordpress_root_domain }};
+	pagespeed Domain www.{{ wordpress_root_domain }};
 
 ##### MAIN location
 
