@@ -25,6 +25,8 @@ server {
 	pagespeed DownstreamCachePurgeMethod			"GET";
 	pagespeed Domain {{ wordpress_root_domain }};
 	pagespeed Domain www.{{ wordpress_root_domain }};
+	pagespeed MapRewriteDomain {{ wordpress_root_domain }} www.{{ wordpress_root_domain }};
+	pagespeed MapOriginDomain localhost *.{{ wordpress_root_domain }} {{ wordpress_root_domain }};
 
 ##### MAIN location
 
