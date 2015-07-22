@@ -31,7 +31,11 @@ server {
 		proxy_cache_min_uses  1;
 
 		## pagespeed beacon ##
-		proxy_set_header PS-CapabilityList "fully general optimizations only";
+		if $ua_dependent_ps_capability_list ~ "^$" {
+			set $ua_dependent_ps_capability_list "fully general optimizations only";
+		}
+
+		proxy_set_header PS-CapabilityList $ua_dependent_ps_capability_list ;
 		proxy_hide_header PS-ShouldBeacon;
 		proxy_set_header PS-ShouldBeacon $should_beacon_header_val;
 	}
