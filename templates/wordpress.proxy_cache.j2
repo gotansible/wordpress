@@ -25,6 +25,11 @@ server {
 		proxy_pass http://localhost:8090;
 		include global/pagespeed-proxy-cache.conf; # do actual caching
 
+		proxy_cache_valid  200 302 18h;
+		proxy_cache_valid  301 1h;
+		proxy_cache_valid  any 2m;
+		proxy_cache_min_uses  1;
+
 		## pagespeed beacon ##
 		proxy_set_header PS-CapabilityList "fully general optimizations only";
 		proxy_hide_header PS-ShouldBeacon;
