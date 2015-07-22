@@ -5,7 +5,7 @@ dependencies:
     nginx_pagespeed_build: true
     nginx_pagespeed_enabled: true
     nginx_proxy_cache_paths:
-      - "{{ nginx_proxy_cache_path_dir }} levels=1:2 keys_zone=htmlcache:100m max_size=1024m inactive=605m"
+      - "{{ nginx_proxy_cache_path_dir }} $post_binary_remote_addr levels=1:2 keys_zone=htmlcache:100m max_size=1024m inactive=605m"
     when: wordpress_role_nginx
 
 galaxy_info:
