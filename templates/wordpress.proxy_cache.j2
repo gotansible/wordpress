@@ -2,7 +2,7 @@
 
 # Caching Proxy For Wordpress
 server {
-	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$ ~^{{ wordpress_root_domain | replace(".", "\.") }}\.{{ wordpress_test_domain | replace(".", "\.") }}$;
+	server_name ~^{{ wordpress_root_domain | replace(".", "\.") }}$ ~^www\.{{ wordpress_root_domain | replace(".", "\.") }}$ ~^{{ wordpress_root_domain | replace(".", "\.") }}\.{{ wordpress_test_domain | replace(".", "\.") }}$;
 	listen 80 {% if wordpress_default_site %}default_server{% endif %};
 
 	access_log /var/log/nginx/{{ wordpress_root_domain }}_proxy_access.json json;
@@ -24,19 +24,48 @@ server {
 	}
 
 	# Cross domain webfont access
-	location ~ \.(ttf|ttc|otf|eot|woff|woff2)$ {
-		add_header "Access-Control-Allow-Origin" "*";
-		proxy_pass http://localhost:8090;
+	location ~* \.(ttf|ttc|otf|eot|woff|woff2)$ {
+		//    if ($http_origin ~* (https?://.*\.{{ wordpress_root_domain | replace(".", "\.") }}(:[0-9]+)?$)) {
+		set $cors "1";
+		
+		# OPTIONS indicates a CORS pre-flight request
+		if ($request_method = 'OPTIONS') {
+			set $cors "${cors}o";
+		}
+		
+		# Append CORS headers to any request from 
+		# allowed CORS domain, except OPTIONS
+		if ($cors = "1") {
+			more_set_headers 'Access-Control-Allow-Origin: $http_origin';
+			more_set_headers 'Access-Control-Allow-Credentials: true';
+			proxy_pass http://localhost:8090/;
+		}
+		
+		# OPTIONS (pre-flight) request from allowed 
+		# CORS domain. return response directly
+		if ($cors = "1o") {
+			more_set_headers 'Access-Control-Allow-Origin: $http_origin';
+			more_set_headers 'Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE';
+			more_set_headers 'Access-Control-Allow-Credentials: true';
+			more_set_headers 'Access-Control-Allow-Headers: Origin,Content-Type,Accept';
+			add_header Content-Length 0;
+			add_header Content-Type text/plain;
+			return 204;
+		}
+
+		proxy_pass http://localhost:8090/;
 
 		access_log off;
 		expires 31d;
-		add_header Cache-Control "public";
-	
-		set $bypass_cache 1;
+		more_set_headers 'Cache-Control: public';
 	}
 
+#	location / {
+#		try_Files /var/thisfileshouldnotexists @proxyit;
+#	}
+
 	location / {
-		proxy_pass http://localhost:8090;
+		proxy_pass http://localhost:8090/;
 		include global/pagespeed-proxy-cache.conf; # do actual caching
 
 		proxy_cache_valid  200 18h;
