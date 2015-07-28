@@ -25,7 +25,7 @@ server {
 
 	# Cross domain webfont access
 	location ~* \.(ttf|ttc|otf|eot|woff|woff2)$ {
-		//    if ($http_origin ~* (https?://.*\.{{ wordpress_root_domain | replace(".", "\.") }}(:[0-9]+)?$)) {
+		#    if ($http_origin ~* (https?://.*\.{{ wordpress_root_domain | replace(".", "\.") }}(:[0-9]+)?$)) {
 		set $cors "1";
 		
 		# OPTIONS indicates a CORS pre-flight request
