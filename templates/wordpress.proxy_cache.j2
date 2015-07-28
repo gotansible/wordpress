@@ -23,13 +23,23 @@ server {
 	  set $bypass_cache 1;
 	}
 
+	# Cross domain webfont access
+	location ~* \.(?:ttf|ttc|otf|eot|woff|woff2)$ {
+		add_header "Access-Control-Allow-Origin" "*";
+		proxy_pass http://localhost:8090;
+
+		access_log off;
+		expires 31d;
+		add_header Cache-Control "public";
+	
+		set $bypass_cache 1;
+	}
+
 	location / {
 		proxy_pass http://localhost:8090;
 		include global/pagespeed-proxy-cache.conf; # do actual caching
 
 		proxy_cache_valid  200 18h;
-		proxy_cache_valid  301 1h;
-		proxy_cache_valid  any 2m;
 		proxy_cache_min_uses  1;
 
 		## pagespeed beacon ##
