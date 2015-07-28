@@ -38,7 +38,10 @@ server {
 		if ($cors = "1") {
 			more_set_headers 'Access-Control-Allow-Origin: $http_origin';
 			more_set_headers 'Access-Control-Allow-Credentials: true';
-			proxy_pass http://localhost:8090/;
+			access_log off;
+			expires 31d;
+			more_set_headers 'Cache-Control: public';
+			proxy_pass http://localhost:8090;
 		}
 		
 		# OPTIONS (pre-flight) request from allowed 
@@ -52,12 +55,7 @@ server {
 			add_header Content-Type text/plain;
 			return 204;
 		}
-
-		proxy_pass http://localhost:8090/;
-
-		access_log off;
-		expires 31d;
-		more_set_headers 'Cache-Control: public';
+		
 	}
 
 #	location / {
