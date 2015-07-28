@@ -24,7 +24,7 @@ server {
 	}
 
 	# Cross domain webfont access
-	location ~* \.(?:ttf|ttc|otf|eot|woff|woff2)$ {
+	location ~ \.(ttf|ttc|otf|eot|woff|woff2)$ {
 		add_header "Access-Control-Allow-Origin" "*";
 		proxy_pass http://localhost:8090;
 
