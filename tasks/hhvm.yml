@@ -23,7 +23,7 @@
     dest=/etc/hhvm/server.ini
     mode=0644
 
- - name: hhvm - logging php.ini
+- name: hhvm - logging php.ini
   template:
     src=hhvm/php.ini
     dest=/etc/hhvm/php.ini
