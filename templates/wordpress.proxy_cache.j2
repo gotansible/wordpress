@@ -42,6 +42,7 @@ server {
 			expires 31d;
 			more_set_headers 'Cache-Control: public';
 			proxy_pass http://localhost:8090;
+			include global/pagespeed-proxy-cache.conf; # do actual caching
 		}
 		
 		# OPTIONS (pre-flight) request from allowed 
