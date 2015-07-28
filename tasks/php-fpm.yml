@@ -1,5 +1,5 @@
 ---
-- name: depend - php5-fpm
+- name: php5-fpm - depend
   apt:
     name={{ item }}
     state=present
@@ -11,3 +11,8 @@
     - php5-gd
     - php5-curl
 
+- name: php5-fpm - config
+  template:
+    src=php5/fpm/pool.d/www.conf
+    dest=/etc/php5/fpm/pool.d/www.conf
+    mode=0644

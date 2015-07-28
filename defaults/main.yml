@@ -6,8 +6,15 @@ wordpress_build_dir: /var/ansible/wordpress
 wordpress_install_dir: /var/www/{{ wordpress_root_domain }}
 wordpress_info_dir: /var/www/phpinfo
 
-wordpress_user: wordpress
+wordpress_user: nginx
 wordpress_group: www-data
+
+wordpress_hhvm_user: hhvm
+wordpress_hhvm_group: "{{ wordpress_group }}"
+
+wordpress_php_user: php
+wordpress_php_group: "{{ wordpress_group }}"
+
 wordpress_archive: wordpress-4.2.2.tar.gz
 
 wordpress_nginx_conf_dir: /etc/nginx
