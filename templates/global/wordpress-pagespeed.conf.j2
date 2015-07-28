@@ -20,8 +20,8 @@ pagespeed EnableFilters collapse_whitespace,remove_comments;
 #pagespeed EnableFilters combine_css,rewrite_css;
 # JS
 #pagespeed EnableFilters combine_javascript,rewrite_javascript;
+#pagespeed sprite_images,dedup_inlined_images,insert_image_dimensions,inline_images,outline_javascript,defer_javascript,insert_dns_prefetch,lazyload_images,move_css_to_head,move_css_above_scripts,outline_css;
 
-pagespeed sprite_images,dedup_inlined_images,insert_image_dimensions,inline_images,outline_javascript,defer_javascript,insert_dns_prefetch,lazyload_images,move_css_to_head,move_css_above_scripts,outline_css;
 pagespeed canonicalize_javascript_libraries;
 
 pagespeed add_instrumentation;
