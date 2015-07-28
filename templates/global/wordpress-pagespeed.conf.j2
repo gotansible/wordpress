@@ -17,12 +17,12 @@ pagespeed RewriteLevel PassThrough;
 pagespeed EnableFilters collapse_whitespace,remove_comments;
 
 # CSS
-#pagespeed EnableFilters combine_css,rewrite_css;
+pagespeed EnableFilters combine_css,rewrite_css;
 # JS
-#pagespeed EnableFilters combine_javascript,rewrite_javascript;
-#pagespeed EnableFilters sprite_images,dedup_inlined_images,insert_image_dimensions,inline_images,outline_javascript,defer_javascript,insert_dns_prefetch,lazyload_images,move_css_to_head,move_css_above_scripts,outline_css;
+pagespeed EnableFilters combine_javascript,rewrite_javascript;
 
-pagespeed EnableFilters canonicalize_javascript_libraries;
+#pagespeed EnableFilters sprite_images,dedup_inlined_images,insert_image_dimensions,inline_images,outline_javascript,defer_javascript,insert_dns_prefetch,lazyload_images,move_css_to_head,move_css_above_scripts,outline_css;
+#pagespeed EnableFilters canonicalize_javascript_libraries;
 
 pagespeed EnableFilters add_instrumentation;
 pagespeed ReportUnloadTime on;
