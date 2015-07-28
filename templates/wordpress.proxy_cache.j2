@@ -24,40 +24,36 @@ server {
 	}
 
 	# Cross domain webfont access
-	location ~* \.(ttf|ttc|otf|eot|woff|woff2)$ {
-		#    if ($http_origin ~* (https?://.*\.{{ wordpress_root_domain | replace(".", "\.") }}(:[0-9]+)?$)) {
-		set $cors "1";
-		
-		# OPTIONS indicates a CORS pre-flight request
-		if ($request_method = 'OPTIONS') {
-			set $cors "${cors}o";
-		}
-		
-		# Append CORS headers to any request from 
-		# allowed CORS domain, except OPTIONS
-		if ($cors = "1") {
-			more_set_headers 'Access-Control-Allow-Origin: $http_origin';
-			more_set_headers 'Access-Control-Allow-Credentials: true';
-			access_log off;
-			expires 31d;
-			more_set_headers 'Cache-Control: public';
-			proxy_pass http://localhost:8090;
-			include global/pagespeed-proxy-cache.conf; # do actual caching
-		}
-		
-		# OPTIONS (pre-flight) request from allowed 
-		# CORS domain. return response directly
-		if ($cors = "1o") {
-			more_set_headers 'Access-Control-Allow-Origin: $http_origin';
-			more_set_headers 'Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE';
-			more_set_headers 'Access-Control-Allow-Credentials: true';
-			more_set_headers 'Access-Control-Allow-Headers: Origin,Content-Type,Accept';
-			add_header Content-Length 0;
-			add_header Content-Type text/plain;
-			return 204;
-		}
-		
-	}
+#	location ~* \.(ttf|ttc|otf|eot|woff|woff2)$ {
+#		#    if ($http_origin ~* (https?://.*\.{{ wordpress_root_domain | replace(".", "\.") }}(:[0-9]+)?$)) {
+#		set $cors "1";
+#		
+#		# OPTIONS indicates a CORS pre-flight request
+#		if ($request_method = 'OPTIONS') {
+#			set $cors "${cors}o";
+#		}
+#			
+#		# OPTIONS (pre-flight) request from allowed 
+#		# CORS domain. return response directly
+#		if ($cors = "1o") {
+#			more_set_headers 'Access-Control-Allow-Origin: $http_origin';
+#			more_set_headers 'Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE';
+#			more_set_headers 'Access-Control-Allow-Credentials: true';
+#			more_set_headers 'Access-Control-Allow-Headers: Origin,Content-Type,Accept';
+#			add_header Content-Length 0;
+#			add_header Content-Type text/plain;
+#			return 204;
+#		}
+#
+#		more_set_headers 'Access-Control-Allow-Origin: $http_origin';
+#		more_set_headers 'Access-Control-Allow-Credentials: true';
+#		access_log off;
+#		expires 31d;
+#		more_set_headers 'Cache-Control: public';
+#		proxy_pass http://localhost:8090;
+#		include global/pagespeed-proxy-cache.conf; # do actual caching
+#			
+#	}
 
 #	location / {
 #		try_Files /var/thisfileshouldnotexists @proxyit;
