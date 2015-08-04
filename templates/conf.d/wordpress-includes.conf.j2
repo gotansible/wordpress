@@ -2,4 +2,6 @@
 
 include global/wordpress-limits.conf;
 
-
+# http://stackoverflow.com/questions/23844761/upstream-sent-too-big-header-while-reading-response-header-from-upstream
+#fastcgi_buffers 16 16k; 
+#fastcgi_buffer_size 32k;

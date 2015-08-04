@@ -48,6 +48,7 @@
     - upstream-php.conf
     - phpinfo.conf
     - wordpress-includes.conf
+    - wordpress-buffers.conf
   notify: restart wordpress
 
 # nginx wordpress site
